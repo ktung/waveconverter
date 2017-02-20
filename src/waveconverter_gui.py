@@ -1081,4 +1081,7 @@ class TopWindow:
         # if we were passed a protocol via the command line or via
         # manual definition, populate gui with those values
         #if not (protocol_number == -1):
-        self.populateProtocolToGui(protocol) 
+        self.populateProtocolToGui(protocol)
+
+    def on_runCapture_clicked(self, button, data=None):
+        os.system("python ../../rawcapture/rawcapture.py -f 101900000  -s 500000 -o output.iq")

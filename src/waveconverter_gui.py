@@ -659,6 +659,7 @@ class TopWindow:
         self.axis.set_xlabel('time (ms)') # replace with time unit
         self.axis.set_ylabel('Baseband Signal') # replace with ???
         self.canvas.draw()
+        self.canvas0.draw()
         self.canvas1.draw()
         self.canvas2.draw()
         
@@ -1025,20 +1026,25 @@ class TopWindow:
         self.axis.set_xlabel('time (ms)')
         self.axis.set_ylabel('Baseband Signal')
         self.canvas = FigureCanvas(self.figure)  # a Gtk.DrawingArea
+        self.canvas0 = FigureCanvas(self.figure)  # a Gtk.DrawingArea
         self.canvas1 = FigureCanvas(self.figure)
         self.canvas2 = FigureCanvas(self.figure)
         self.canvas.set_size_request(400,40)
+        self.canvas0.set_size_request(400,40)
         self.canvas1.set_size_request(400,40)
         self.canvas2.set_size_request(400,40)
         
         # each canvas should be identical; assign to the widgets on 3 tabs
         self.plotWidget = self.builder.get_object("basebandPlot")
+        self.plotWidget0 = self.builder.get_object("basebandPlot0")
         self.plotWidget1 = self.builder.get_object("basebandPlot1")
         self.plotWidget2 = self.builder.get_object("basebandPlot2")
         self.plotWidget.add_with_viewport(self.canvas)
+        self.plotWidget0.add_with_viewport(self.canvas0)
         self.plotWidget1.add_with_viewport(self.canvas1)
         self.plotWidget2.add_with_viewport(self.canvas2)
         self.plotWidget.show_all()
+        self.plotWidget0.show_all()
         self.plotWidget1.show_all()
         self.plotWidget2.show_all()
         

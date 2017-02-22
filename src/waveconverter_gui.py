@@ -1086,12 +1086,9 @@ class TopWindow:
         self.populateProtocolToGui(protocol)
 
     def on_runCapture_clicked(self, button, data=None):
-        t = RawCaptureThread()
+        t = RawCaptureThread(self.getIntFromEntry("entry1"), self.getIntFromEntry("entry2"), self.getStringFromEntry("entry3"))
         if self.runBtn is False:
             self.runBtn = True
-            print self.getIntFromEntry("entry1")
-            print self.getIntFromEntry("entry2")
-            print self.getStringFromEntry("entry3")
             t.start()
             button.set_label("Stop Capture")
         else:

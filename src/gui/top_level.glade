@@ -393,7 +393,7 @@
                       <object class="GtkLabel" id="label82">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Fréquence</property>
+                        <property name="label" translatable="yes">Fréquence (MHz)</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -404,7 +404,7 @@
                       <object class="GtkLabel" id="label84">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Sample rate</property>
+                        <property name="label" translatable="yes">Sample rate (MHz)</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -415,7 +415,7 @@
                       <object class="GtkEntry" id="entry1">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="text" translatable="yes">101900000</property>
+                        <property name="text" translatable="yes">101.9</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -426,7 +426,7 @@
                       <object class="GtkEntry" id="entry2">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="text" translatable="yes">500000</property>
+                        <property name="text" translatable="yes">0.5</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -437,7 +437,7 @@
                       <object class="GtkLabel" id="label85">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Output file</property>
+                        <property name="label" translatable="yes">Output file name</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -448,7 +448,7 @@
                       <object class="GtkEntry" id="entry3">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="text" translatable="yes">output.iq</property>
+                        <property name="text" translatable="yes">output</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>

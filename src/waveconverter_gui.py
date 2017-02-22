@@ -47,7 +47,8 @@ class TopWindow:
 
     runBtn = False
     spinButtonPressed = -1
-    
+    t = RawCaptureThread(0.0, 0.0, "output")
+
     def on_window1_destroy(self, object, data=None):
         if wcv.verbose:
             print "quit with cancel"
@@ -1086,34 +1087,46 @@ class TopWindow:
         self.populateProtocolToGui(protocol)
 
     def on_runCapture_clicked(self, button, data=None):
-        t = RawCaptureThread(self.getFloatFromEntry("entry1"), self.getFloatFromEntry("entry2"), self.getStringFromEntry("entry3"))
+        self.t = RawCaptureThread(self.getFloatFromEntry("entry1"), self.getFloatFromEntry("entry2"), self.getStringFromEntry("entry3"))
         if self.runBtn is False:
             self.runBtn = True
-            t.start()
+            self.t.start()
             button.set_label("Stop Capture")
         else:
             self.runBtn = False
             button.set_label("Start Capture")
-            t.stop()
+            self.t.stop()
             os.system("ps aux | grep ../../rawcapture/rawcapture.py | grep -v grep | awk '{print $2}' | xargs -n1 kill")
+            self.loadFile()
 
-            import glob
-            newestFile = max(glob.iglob('../../rawcapture/outputs/*.iq'), key=os.path.getctime)
+    def on_windows_focus(self, win, data=None):
+        if self.runBtn is True:
+            import time
+            time.sleep(1)
+            if self.t.is_alive() is False:
+                self.loadFile()
+                self.runBtn = False
+                self.builder.get_object("runCaptureBtn").set_label("Start Capture")
 
-            # global constants
-            import waveConvertVars as wcv
-            from iqFileArgParse import iqFileObject
-            wcv.iqFileName = newestFile
-            # try to parse the file name to see if if contains the iq parameters
-            wcv.inputFileObject = iqFileObject(fileName = newestFile)
-            try:
-                wcv.center_freq = wcv.inputFileObject.centerFreq
-                wcv.samp_rate = wcv.inputFileObject.sampRate
-            # since the parameters weren't there, they must be supplied from other args
-            except:
-                wcv.center_freq = -1
-                wcv.samp_rate = -1
+    def loadFile(self):
+        import glob
+        newestFile = max(glob.iglob('../../rawcapture/outputs/*.iq'), key=os.path.getctime)
 
-            self.setEntry("iqFileNameEntry", wcv.iqFileName)
-            self.setEntry("centerFreqEntry", wcv.center_freq/1000000.0)
-            self.setEntry("sampRateEntry", wcv.samp_rate/1000000.0)
+        # global constants
+        import waveConvertVars as wcv
+        from iqFileArgParse import iqFileObject
+        wcv.iqFileName = newestFile
+        # try to parse the file name to see if if contains the iq parameters
+        wcv.inputFileObject = iqFileObject(fileName = newestFile)
+        try:
+            wcv.center_freq = wcv.inputFileObject.centerFreq
+            wcv.samp_rate = wcv.inputFileObject.sampRate
+        # since the parameters weren't there, they must be supplied from other args
+        except:
+            wcv.center_freq = -1
+            wcv.samp_rate = -1
+
+        self.setEntry("iqFileNameEntry", wcv.iqFileName)
+        self.setEntry("centerFreqEntry", wcv.center_freq/1000000.0)
+        self.setEntry("sampRateEntry", wcv.samp_rate/1000000.0)
+

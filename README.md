@@ -8,6 +8,7 @@ You will need gnuradio installed for this software to work. While you
 can install this via:
 ```
 sudo apt-get install gnuradio
+sudo apt-get install gr-osmosdr
 ```
 You will benefit from a much more recent version if you follow the
 instructions at:

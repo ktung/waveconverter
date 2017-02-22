@@ -18,5 +18,5 @@ class RawCaptureThread(threading.Thread):
     def run(self):
         cmd = "python ../../rawcapture/rawcapture.py -f "+ str(self.freq) +"  -s "+ str(self.sample_rate)
         if (len(self.output_file) > 0):
-            cmd += "-o "+ self.output_file
+            cmd += " -o "+ self.output_file
         os.system(cmd)
